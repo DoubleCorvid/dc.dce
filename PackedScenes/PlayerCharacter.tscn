@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bvfwtvr5gsosa"]
 
-[ext_resource type="Script" uid="uid://bj13gb5r0v3bb" path="res://Scripts/PC/PlayerCharacterContoller.cs" id="1_oik2h"]
+[ext_resource type="Script" uid="uid://bj13gb5r0v3bb" path="res://Scripts/PlayerCharacterContoller.cs" id="1_ipku3"]
 [ext_resource type="PackedScene" uid="uid://dwhyhfsyo4gg3" path="res://PackedScenes/CameraController.tscn" id="2_ipku3"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hx7hl"]
@@ -8,7 +8,7 @@
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_hx7hl"]
 
 [node name="PlayerCharacter" type="CharacterBody3D" unique_id=1434155946 node_paths=PackedStringArray("CameraController")]
-script = ExtResource("1_oik2h")
+script = ExtResource("1_ipku3")
 CameraController = NodePath("CameraController")
 
 [node name="Collision" type="CollisionShape3D" parent="." unique_id=874638976]

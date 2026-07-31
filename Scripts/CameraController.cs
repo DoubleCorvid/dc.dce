@@ -1,13 +1,13 @@
 using Godot;
 
-namespace DoubleCorvid.DungeonCrawlExtraction.PC;
+namespace DoubleCorvid.DungeonCrawlExtraction;
 
 public partial class CameraController : Node3D {
 	[Export]
 	public float MouseSensitvity { get; private set; } = 1f;
 
 	[Export]
-	public float CameraTiltUpperLimit { get; private set; } = Mathf.Pi / 3;
+	public float CameraTiltUpperLimit { get; private set; } = Mathf.Pi / 2;
 
 	[Export]
 	public float CameraTiltLowerLimit { get; private set; } = -Mathf.Pi / 6;
@@ -53,15 +53,7 @@ public partial class CameraController : Node3D {
     }
 
     public override void _PhysicsProcess (double delta) {
-		var deltaF = (float) delta;
-
-		var cameraRotation = Rotation;
-
-		var tiltTarget = Rotation.X + -_cameraInputDirection.Y * deltaF;
-
-        var newCameraRotationX = Mathf.Clamp (tiltTarget, CameraTiltLowerLimit, CameraTiltUpperLimit);
-
-		Rotation = new Vector3 (newCameraRotationX, cameraRotation.Y, cameraRotation.Z);
+		Rotate (Vector3.Right, -_cameraInputDirection.Y * (float) delta);
 
 		_cameraInputDirection = Vector2.Zero;
     }

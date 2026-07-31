@@ -1,11 +1,10 @@
 [gd_scene format=3 uid="uid://dwhyhfsyo4gg3"]
 
-[ext_resource type="Script" uid="uid://hfhcmvhhhhwx" path="res://Scripts/PC/CameraController.cs" id="1_wne45"]
+[ext_resource type="Script" uid="uid://hfhcmvhhhhwx" path="res://Scripts/CameraController.cs" id="1_wne45"]
 
-[node name="CameraController" type="Node3D" unique_id=1898172844 node_paths=PackedStringArray("SpringArm", "Camera")]
+[node name="CameraController" type="Node3D" unique_id=1898172844 node_paths=PackedStringArray("Camera")]
 transform = Transform3D(0.9998318, -0.0038774419, -0.01792686, 0.00092921173, 0.986852, -0.16162376, 0.018317845, 0.16157992, 0.9866896, 0, 0, 0)
 script = ExtResource("1_wne45")
-SpringArm = NodePath("SpinrgArm")
 Camera = NodePath("SpinrgArm/Camera")
 
 [node name="SpinrgArm" type="SpringArm3D" parent="." unique_id=1501916495]
