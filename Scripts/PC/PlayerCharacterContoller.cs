@@ -1,10 +1,14 @@
+using System.Diagnostics;
 using Godot;
 
 namespace DoubleCorvid.DungeonCrawlExtraction.PC;
 
 public partial class PlayerCharacterContoller : CharacterBody3D {
 	[Export]
-	public float MoveSpeed { get; private set; } = 8f;
+	public float WalkSpeed { get; private set; } = 8f;
+
+	[Export]
+	public float RunSpeed { get; private set; } = 16f;
 
 	[Export]
 	public float Accelation { get; private set; } = 100f;
@@ -31,19 +35,34 @@ public partial class PlayerCharacterContoller : CharacterBody3D {
 
 	private Vector3 _lastMovementDirection = Vector3.Back;
 
-	private bool _sprinting = false;
+	private bool _running = false;
 
     public override void _Input (InputEvent @event) {
-        base._Input(@event);
     }
 
     public override void _UnhandledInput (InputEvent @event) {
         if (@event is InputEventMouseMotion mouseMotion && Input.MouseMode == Input.MouseModeEnum.Captured) {
 			_cameraInputDirection = mouseMotion.ScreenRelative * CameraController.MouseSensitvity;
 		}
+
+        if (@event.IsAction ("run") && !_running) {
+			_running = true;
+		}
+
+		if (@event.IsActionReleased ("run") && _running) {
+			_running = false;
+		}
     }
 
     public override void _PhysicsProcess(double delta) {
+		var deltaF = (float) delta;
+
+		var bodyRotationY = _cameraInputDirection.X * deltaF;
+
+		Rotation = new Vector3 (Rotation.X, Rotation.Y - bodyRotationY, Rotation.Z);
+
+		_cameraInputDirection = Vector2.Zero;
+
 		var rawInput = Input.GetVector ("move_left", "move_right", "move_forward", "move_backward");
 		var forward = CameraController.Camera.GlobalBasis.Z;
 		var right = CameraController.Camera.GlobalBasis.X;
@@ -58,9 +77,11 @@ public partial class PlayerCharacterContoller : CharacterBody3D {
 
 		Velocity = new Vector3 (Velocity.X, 0, Velocity.Z);
 
-		Velocity = Velocity.MoveToward (moveDirection * MoveSpeed, Accelation * (float) delta);
+		var moveSpeed = (_running ? RunSpeed : WalkSpeed);
 
-		Velocity = new Vector3 (Velocity.X, yVelocity + Gravity * (float) delta, Velocity.Z);
+		Velocity = Velocity.MoveToward (moveDirection * moveSpeed, Accelation * deltaF);
+
+		Velocity = new Vector3 (Velocity.X, yVelocity + Gravity * deltaF, Velocity.Z);
 
 		var startedJumping = Input.IsActionJustPressed ("jump") && IsOnFloor ();
 

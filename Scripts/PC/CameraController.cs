@@ -60,9 +60,8 @@ public partial class CameraController : Node3D {
 		var tiltTarget = Rotation.X + -_cameraInputDirection.Y * deltaF;
 
         var newCameraRotationX = Mathf.Clamp (tiltTarget, CameraTiltLowerLimit, CameraTiltUpperLimit);
-		var cameraRotationYDelta = _cameraInputDirection.X * deltaF;
 
-		Rotation = new Vector3 (newCameraRotationX, cameraRotation.Y - cameraRotationYDelta, cameraRotation.Z);
+		Rotation = new Vector3 (newCameraRotationX, cameraRotation.Y, cameraRotation.Z);
 
 		_cameraInputDirection = Vector2.Zero;
     }

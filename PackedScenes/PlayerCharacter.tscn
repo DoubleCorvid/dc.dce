@@ -5,6 +5,8 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hx7hl"]
 
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_hx7hl"]
+
 [node name="PlayerCharacter" type="CharacterBody3D" unique_id=1434155946 node_paths=PackedStringArray("CameraController")]
 script = ExtResource("1_oik2h")
 CameraController = NodePath("CameraController")
@@ -14,3 +16,6 @@ shape = SubResource("CapsuleShape3D_hx7hl")
 
 [node name="CameraController" parent="." unique_id=1898172844 instance=ExtResource("2_ipku3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6238117, 0)
+
+[node name="Body" type="MeshInstance3D" parent="." unique_id=1731474046]
+mesh = SubResource("CapsuleMesh_hx7hl")
