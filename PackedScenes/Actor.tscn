@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://w3t53hgutx0x"]
+
+[ext_resource type="Script" uid="uid://cj13skayikyke" path="res://Scripts/Actor/ActorContoller.cs" id="1_loiha"]
+[ext_resource type="PackedScene" uid="uid://dwhyhfsyo4gg3" path="res://PackedScenes/ActorCamera.tscn" id="2_loiha"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hx7hl"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_hx7hl"]
+
+[node name="Actor" type="CharacterBody3D" unique_id=1434155946 node_paths=PackedStringArray("CameraController")]
+script = ExtResource("1_loiha")
+CameraController = NodePath("ActorCamera")
+
+[node name="Collision" type="CollisionShape3D" parent="." unique_id=874638976]
+shape = SubResource("CapsuleShape3D_hx7hl")
+
+[node name="Body" type="MeshInstance3D" parent="." unique_id=1731474046]
+mesh = SubResource("CapsuleMesh_hx7hl")
+
+[node name="ActorCamera" parent="." unique_id=1898172844 instance=ExtResource("2_loiha")]

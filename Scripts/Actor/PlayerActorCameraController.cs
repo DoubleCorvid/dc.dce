@@ -1,17 +1,8 @@
 using Godot;
 
-namespace DoubleCorvid.DungeonCrawlExtraction;
+namespace DoubleCorvid.DungeonCrawlExtraction.Actor;
 
-public partial class CameraController : Node3D {
-	[Export]
-	public float MouseSensitvity { get; private set; } = 1f;
-
-	[Export]
-	public float CameraTiltUpperLimit { get; private set; } = Mathf.Pi / 2;
-
-	[Export]
-	public float CameraTiltLowerLimit { get; private set; } = -Mathf.Pi / 6;
-
+public partial class PlayerActorCameraController : ActorCameraController {
 	[Export]
 	public SpringArm3D SpringArm { get; private set; }
 
@@ -20,11 +11,6 @@ public partial class CameraController : Node3D {
 
 	[Export]
 	public float SpringArmLengthTPP { get; private set; } = 10;
-
-	[Export]
-	public Camera3D Camera { get; private set; }
-
-	private Vector2 _cameraInputDirection = Vector2.Zero;
 
     public override void _Input (InputEvent @event) {
 		if (@event.IsActionPressed ("ui_cancel")) {
@@ -48,13 +34,7 @@ public partial class CameraController : Node3D {
 
     public override void _UnhandledInput (InputEvent @event) {
         if (@event is InputEventMouseMotion mouseMotion && Input.MouseMode == Input.MouseModeEnum.Captured) {
-			_cameraInputDirection = mouseMotion.ScreenRelative * MouseSensitvity;
+			NextLookAngle = mouseMotion.ScreenRelative * LookSensitivity;
 		}
-    }
-
-    public override void _PhysicsProcess (double delta) {
-		Rotate (Vector3.Right, -_cameraInputDirection.Y * (float) delta);
-
-		_cameraInputDirection = Vector2.Zero;
     }
 }

@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://cdjrahhr77jc2"]
+
+[ext_resource type="Script" uid="uid://dp0xt21y01mtp" path="res://Scripts/Actor/PlayerActorCameraController.cs" id="1_13iij"]
+
+[node name="PlayerActorCamera" type="Node3D" unique_id=1898172844 node_paths=PackedStringArray("SpringArm", "Camera")]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("1_13iij")
+SpringArm = NodePath("SpinrgArm")
+Camera = NodePath("SpinrgArm/Camera")
+
+[node name="SpinrgArm" type="SpringArm3D" parent="." unique_id=1501916495]
+spring_length = 0.0
+
+[node name="Camera" type="Camera3D" parent="SpinrgArm" unique_id=1289368373]
