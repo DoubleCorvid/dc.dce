@@ -4,7 +4,7 @@ namespace DoubleCorvid.DungeonCrawlExtraction.PC;
 
 public partial class CameraController : Node3D {
 	[Export]
-	public float MouseSensitvity { get; private set; } = 20f;
+	public float MouseSensitvity { get; private set; } = 1f;
 
 	[Export]
 	public float CameraTiltUpperLimit { get; private set; } = Mathf.Pi / 3;
@@ -21,9 +21,12 @@ public partial class CameraController : Node3D {
 	[Export]
 	public float SpringArmLengthTPP { get; private set; } = 10;
 
+	[Export]
+	public Camera3D Camera { get; private set; }
+
 	private Vector2 _cameraInputDirection = Vector2.Zero;
 
-    public override void _Input(InputEvent @event) {
+    public override void _Input (InputEvent @event) {
 		if (@event.IsActionPressed ("ui_cancel")) {
 			Input.MouseMode = Input.MouseModeEnum.Visible;
 		}
@@ -49,13 +52,17 @@ public partial class CameraController : Node3D {
 		}
     }
 
-    public override void _PhysicsProcess(double delta) {
+    public override void _PhysicsProcess (double delta) {
+		var deltaF = (float) delta;
+
 		var cameraRotation = Rotation;
 
-        var newCameraRotationX = Mathf.Clamp (Rotation.X + _cameraInputDirection.Y * delta, CameraTiltLowerLimit, CameraTiltUpperLimit);
-		var newCameraRotationY = _cameraInputDirection.X * delta;
+		var tiltTarget = Rotation.X + -_cameraInputDirection.Y * deltaF;
 
-		Rotation = new Vector3 ((float) newCameraRotationX, (float) newCameraRotationY, cameraRotation.Z);
+        var newCameraRotationX = Mathf.Clamp (tiltTarget, CameraTiltLowerLimit, CameraTiltUpperLimit);
+		var cameraRotationYDelta = _cameraInputDirection.X * deltaF;
+
+		Rotation = new Vector3 (newCameraRotationX, cameraRotation.Y - cameraRotationYDelta, cameraRotation.Z);
 
 		_cameraInputDirection = Vector2.Zero;
     }
