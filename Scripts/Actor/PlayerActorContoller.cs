@@ -22,7 +22,7 @@ public partial class PlayerActorContoller : ActorContoller {
 		Forward = CameraController.Camera.GlobalBasis.Z;
 		Right = CameraController.Camera.GlobalBasis.X;
 
-		Jumping = Input.IsActionJustPressed ("jump");
+		JustJumped = Input.IsActionJustPressed ("jump");
 
 		base._PhysicsProcess (delta);
     }

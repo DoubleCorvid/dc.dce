@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Godot;
 
 namespace DoubleCorvid.DungeonCrawlExtraction.Actor;
@@ -16,7 +17,7 @@ public partial class ActorContoller : CharacterBody3D {
 	public float RotationSpeed { get; private set; } = 20f;
 
 	[Export]
-	public float JumpImpulse { get; private set; } = 1f;
+	public float JumpImpulse { get; private set; } = 4f;
 
 	[Export]
 	public float Gravity = -9.806f;
@@ -36,7 +37,7 @@ public partial class ActorContoller : CharacterBody3D {
 
 	public bool Running { get; set; } = false;
 
-	public bool Jumping { get; set; } = false;
+	public bool JustJumped { get; set; } = false;
 
     public override void _PhysicsProcess (double delta) {
 		var bodyRotationY = NextRotateDirection.X * (float) delta;
@@ -55,15 +56,17 @@ public partial class ActorContoller : CharacterBody3D {
 
 		var moveSpeed = (Running ? RunSpeed : WalkSpeed);
 
-		Velocity = new Vector3 (Velocity.X, 0, Velocity.Z);
+		var yVelocity = Velocity.Y;
 
-		Velocity = Velocity.MoveToward (moveDirection * moveSpeed, Accelation * (float) delta);
+		if (JustJumped && IsOnFloor ()) {
+			yVelocity += JumpImpulse;
 
-		Velocity += new Vector3 (0, Velocity.Y + Gravity * (float) delta, 0);
-
-		if (Jumping && IsOnFloor ()) {
-			Velocity += new Vector3 (0, JumpImpulse, 0);
+			JustJumped = false;
 		}
+
+		var moveTarget = new Vector3 (Velocity.X, 0, Velocity.Z).MoveToward (moveDirection * moveSpeed, Accelation * (float) delta) + new Vector3 (0, yVelocity + Gravity * (float) delta, 0);
+
+		Velocity = moveTarget;
 
 		MoveAndSlide ();
     }
