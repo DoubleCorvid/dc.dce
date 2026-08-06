@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Godot;
 
 namespace DoubleCorvid.DungeonCrawlExtraction.Actor;
@@ -13,7 +14,7 @@ public partial class ActorCameraController : Node3D {
 	public float CameraTiltLowerLimit { get; set; } = -Mathf.Pi / 3;
 
 	[Export]
-	public Camera3D Camera { get; private set; }
+	public Camera3D? Camera { get; private set; }
 
 	public Vector2 NextLookAngle { get; set; } = Vector2.Zero;
 

@@ -1,10 +1,11 @@
+using System;
 using Godot;
 
 namespace DoubleCorvid.DungeonCrawlExtraction.Actor;
 
 public partial class PlayerActorCameraController : ActorCameraController {
 	[Export]
-	public SpringArm3D SpringArm { get; private set; }
+	public SpringArm3D? SpringArm { get; private set; }
 
 	[Export]
 	public bool IsFPP { get; private set; } = true;
@@ -12,7 +13,15 @@ public partial class PlayerActorCameraController : ActorCameraController {
 	[Export]
 	public float SpringArmLengthTPP { get; private set; } = 10;
 
+    public override void _Ready() {
+        base._Ready();
+    }
+
     public override void _Input (InputEvent @event) {
+		if (SpringArm is null) {
+			throw new NullReferenceException ();
+		}
+		
 		if (@event.IsActionPressed ("ui_cancel")) {
 			Input.MouseMode = Input.MouseModeEnum.Visible;
 		}

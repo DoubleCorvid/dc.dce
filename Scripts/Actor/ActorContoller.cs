@@ -23,7 +23,7 @@ public partial class ActorContoller : CharacterBody3D {
 	public float Gravity = -9.806f;
 
 	[Export]
-	public ActorCameraController CameraController { get; private set; }
+	public ActorCameraController? CameraController { get; private set; }
 
 	[Export]
 	public Vector3 Forward { get; set; } = Vector3.Forward;
