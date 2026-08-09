@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://cssvxrfkp2epi"]
+
+[ext_resource type="Script" uid="uid://cgmpx3hju66lp" path="res://Scripts/Entities/ItemEntity.cs" id="1_l05qe"]
+[ext_resource type="Material" uid="uid://dsctaw3nj0ph2" path="res://Materials/DebugPickupMaterial.tres" id="2_cj7bk"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hx7hl"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ln407"]
+
+[node name="ItemEntity" type="Node3D" unique_id=891335648]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+script = ExtResource("1_l05qe")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1243694957]
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=345467955]
+shape = SubResource("CapsuleShape3D_hx7hl")
+
+[node name="Mesh" type="MeshInstance3D" parent="StaticBody3D" unique_id=1833119495]
+material_override = ExtResource("2_cj7bk")
+mesh = SubResource("CapsuleMesh_ln407")

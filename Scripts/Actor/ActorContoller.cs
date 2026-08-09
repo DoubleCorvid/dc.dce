@@ -4,6 +4,7 @@ using Godot;
 namespace DoubleCorvid.DungeonCrawlExtraction.Actor;
 
 public partial class ActorContoller : CharacterBody3D {
+	[ExportGroup ("Movement")]
 	[Export]
 	public float WalkSpeed { get; private set; } = 8f;
 
@@ -22,14 +23,16 @@ public partial class ActorContoller : CharacterBody3D {
 	[Export]
 	public float Gravity = -9.806f;
 
-	[Export]
-	public ActorCameraController? CameraController { get; private set; }
-
+	[ExportGroup ("Directions")]
 	[Export]
 	public Vector3 Forward { get; set; } = Vector3.Forward;
 
 	[Export]
 	public Vector3 Right { get; set; } = Vector3.Right;
+
+	[ExportCategory ("Children")]
+	[Export]
+	public ActorCameraController? CameraController { get; private set; }
 
 	public Vector2 NextMoveDistance { get; set; } = Vector2.Zero;
 

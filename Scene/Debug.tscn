@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://cnnaujw6nd04b"]
 
+[ext_resource type="Material" uid="uid://bw0ynfokrkrnq" path="res://Materials/DebugFloorMaterial.tres" id="1_m16jg"]
 [ext_resource type="PackedScene" uid="uid://bvfwtvr5gsosa" path="res://PackedScenes/PlayerActor.tscn" id="1_ylj5s"]
+[ext_resource type="PackedScene" uid="uid://cssvxrfkp2epi" path="res://PackedScenes/Entities/ItemEntity.tscn" id="2_s2cbr"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hx7hl"]
 size = Vector3(2, 0.01, 2)
@@ -20,6 +22,7 @@ transform = Transform3D(100, 0, 0, 0, 1, 0, 0, 0, 100, 0, 0, 0)
 shape = SubResource("BoxShape3D_hx7hl")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ground/StaticBody3D" unique_id=1683893178]
+material_override = ExtResource("1_m16jg")
 mesh = SubResource("PlaneMesh_hx7hl")
 
 [node name="PlayerCharacter" parent="." unique_id=1434155946 instance=ExtResource("1_ylj5s")]
@@ -47,3 +50,6 @@ mesh = SubResource("BoxMesh_hx7hl")
 [node name="MeshInstance3D5" type="MeshInstance3D" parent="." unique_id=60252460]
 transform = Transform3D(0.7506349, -0.24377199, 0.61410314, 0.48471272, 0.8347933, -0.26110113, -0.44900006, 0.49365517, 0.7447843, 10, 1, 0)
 mesh = SubResource("BoxMesh_hx7hl")
+
+[node name="ItemEntity" parent="." unique_id=891335648 instance=ExtResource("2_s2cbr")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 1.387, -2)

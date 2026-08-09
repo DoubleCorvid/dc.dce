@@ -1,4 +1,7 @@
 using System;
+using System.Diagnostics;
+using DoubleCorvid.DungeonCrawlExtraction.Entities;
+using DoubleCorvid.DungeonCrawlExtraction.Items;
 using Godot;
 
 namespace DoubleCorvid.DungeonCrawlExtraction.Actor;
@@ -33,6 +36,12 @@ public partial class PlayerActorContoller : ActorContoller {
 
 		JustJumped = Input.IsActionJustPressed ("jump");
 
-		base._PhysicsProcess (delta);
+        if (CameraController.LookCast?.GetCollider () is Node3D lookCollider) {
+            if (lookCollider.GetParent () is IPickupableEntity<BaseItem> pickupable) {
+				Debug.WriteLine (pickupable);
+			} 
+        }
+
+        base._PhysicsProcess (delta);
     }
 }

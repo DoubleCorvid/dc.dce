@@ -16,7 +16,7 @@ public class BaseItem : GameObject {
 
     public required ItemClass Class {get; init; }
 
-    public required IReadOnlyList<ItemType> Types { get; init; }
+    public required ItemType Type { get; init; }
 
     public bool Stackable { get; init; } = false;
 
